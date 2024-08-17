@@ -22,6 +22,28 @@ int quantidade_pratos = 0;
 Pedido pedidos[MAX_PEDIDOS];
 int quantidade_pedidos = 0;
 
+// Inicializar cardápio com pratos cadastrados
+void inicializar_cardapio() {
+    strcpy(cardapio[0].nome, "KIDS");
+    strcpy(cardapio[0].descricao, "Hambúrguer de costela de 100g, queijo mussarela derretido, tomate, alface americana e maionese caseira.");
+    cardapio[0].preco = 24.00;
+
+    strcpy(cardapio[1].nome, "BACON");
+    strcpy(cardapio[1].descricao, "Hambúrguer de costela de 160g coberto de queijo mussarela derretido, fatias de bacon crocante, alface americana, tomate e maionese caseira.");
+    cardapio[1].preco = 34.00;
+
+    strcpy(cardapio[2].nome, "COSTELA TRADICIONAL");
+    strcpy(cardapio[2].descricao, "Hambúrguer de costela de 160g, queijo mussarela derretido, cebola roma, crispy de alho poró, alface americana e a maionese da casa com chimichurri.");
+    cardapio[2].preco = 32.00;
+
+    strcpy(cardapio[3].nome, "EGG");
+    strcpy(cardapio[3].descricao, "Hambúrguer de costela de 160g coberta de queijo mussarela derretido, ovo frito, crispy de alho poró, alface americana, tomate e maionese caseira.");
+    cardapio[3].preco = 32.00;
+
+    quantidade_pratos = 4;
+}
+
+// Cadastrar novos pratos
 void cadastrar_prato() {
     if (quantidade_pratos >= MAX_PRATOS) {
         printf("Capacidade máxima de pratos atingida.\n");
@@ -39,6 +61,7 @@ void cadastrar_prato() {
     printf("Prato cadastrado com sucesso!\n");
 }
 
+// Remover prato
 void remover_prato() {
     if (quantidade_pratos == 0) {
         printf("Não há pratos cadastrados para remover.\n");
@@ -64,6 +87,7 @@ void remover_prato() {
     }
 }
 
+// Buscar prato
 void buscar_prato() {
     if (quantidade_pratos == 0) {
         printf("Não há pratos cadastrados.\n");
@@ -84,6 +108,7 @@ void buscar_prato() {
     }
 }
 
+// Listar todos os pratos cadastrados
 void listar_pratos() {
     if (quantidade_pratos == 0) {
         printf("Não há pratos cadastrados.\n");
@@ -94,6 +119,7 @@ void listar_pratos() {
     }
 }
 
+// Registrar pedido e solicitar feedback
 void registrar_pedido() {
     if (quantidade_pratos == 0) {
         printf("Não há pratos disponíveis para pedido.\n");
@@ -123,9 +149,23 @@ void registrar_pedido() {
         }
     }
     printf("Total do pedido: R$%.2f\n", total);
+
+    // Solicitar feedback ao cliente
+    int feedback;
+    do {
+        printf("Por favor, avalie seu pedido (0 a 5): ");
+        scanf("%d", &feedback);
+        if (feedback < 0 || feedback > 5) {
+            printf("Avaliação inválida. Tente novamente.\n");
+        }
+    } while (feedback < 0 || feedback > 5);
+    printf("Obrigado pelo feedback! Sua avaliação: %d\n", feedback);
 }
 
+// Função principal
 int main() {
+    inicializar_cardapio();
+
     int escolha;
     do {
         printf("Menu:\n");
